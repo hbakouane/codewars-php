@@ -2,6 +2,11 @@
 
 class Exercice
 {
+
+    /**
+     * @param $str
+     * @return string
+     */
     public function spinWords($str) :string
     {
         $exploded = explode(' ', $str);
@@ -15,6 +20,11 @@ class Exercice
         return implode(' ', $exploded);
     }
 
+
+    /**
+     * @param string $code
+     * @return string
+     */
     public function decode_morse(string $code) :string
     {
         $code = str_replace('.... ', 'H', $code);
@@ -27,7 +37,37 @@ class Exercice
         $code = str_replace(' .', 'E', $code);
         return $code;
     }
+
+    // An isogram is a word that has no repeating letters, consecutive or non-consecutive. Implement a
+    // function that determines whether a string that contains only letters is an isogram. Assume the
+    // empty string is an isogram. Ignore letter case.
+    //
+    // isIsogram "Dermatoglyphics" == true
+    // isIsogram "aba" == false
+    // isIsogram "moOse" == false -- ignore letter case
+
+    /**
+     * @param $string
+     * @return bool
+     */
+    public function isIsogram($string)
+    {
+        $lowcases = strtolower($string);
+        $splitted = str_split($lowcases);
+        // Count the array before removing the letters
+        $count = count($splitted);
+        // Remove each letter from the string
+        foreach ($splitted as $key => $value) {
+            $check = array_filter($splitted, function ($letter) use ($value) {
+                return $letter != $value;
+            });
+            if (count($check) != $count-1) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 $instance = new Exercice();
-echo $instance->decode_morse('.... . -.--  .--- ..- -.. .');
+echo $instance->isIsogram('abA');
