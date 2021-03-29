@@ -67,7 +67,19 @@ class Exercice
         }
         return true;
     }
+
+    //    Simple, given a string of words, return the length of the shortest word(s).
+    //
+    //    String will never be empty and you do not need to account for different data types.
+    public function findShort($str) {
+        $str = explode(' ', $str);
+        $new_array = [];
+        foreach ($str as $key => $value) {
+            $new_array[$value] = strlen($value);
+        }
+        return min($new_array);
+    }
 }
 
 $instance = new Exercice();
-echo $instance->isIsogram('abA');
+echo $instance->findShort('bitcoin take over the world maybe who knows perhaps');
